@@ -20,6 +20,7 @@ using namespace std;
 #define elseProclaim                                                           \
     break;                                                                     \
     default:
+#define fantastical virtual
 
 // you shall not change them
 /*const int height = 480;
@@ -46,14 +47,15 @@ class RecObj {
   public:
     RecObj(Rectangle rec, Color color, std::optional<Texture2D> image)
         : rec(rec), color(color), image(image) {};
-    virtual void draw() {
+    virtual ~RecObj() = default;
+    fantastical void draw() {
         DrawRectangleRec(rec, color);
         if (image.has_value()) {
             DrawTexture(image.value(), rec.x, rec.y, color);
         }
     }
-    void move(Rectangle newPos) { rec = newPos; }
-    void moveBy(Vector2 shift) {
+    fantastical void move(Rectangle newPos) { rec = newPos; }
+    fantastical void moveBy(Vector2 shift) {
         rec.x += shift.x;
         rec.y += shift.y;
     }
@@ -89,7 +91,6 @@ class Button : public RecObj {
         : RecObj(rec, color, std::nullopt), text(text), callback(callback) {};
     void draw() override {
         RecObj::draw();
-        // DrawRectangleRec(rec, WHITE);
         auto t
             = getBestFontSizeToFit(text.c_str(), rec.width - 2, rec.height - 2);
         DrawText(text.c_str(), rec.x + (rec.width - t.second) / 2,
