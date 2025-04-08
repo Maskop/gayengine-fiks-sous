@@ -13,6 +13,13 @@ using namespace std;
 #define thyActionRepeatsInTheCaseOf while
 #define until(arg) while (!(arg))
 #define ShallTheeWindowClose WindowShouldClose
+#define mayOneOfTheeBeTrue(subject) switch (subject)
+#define ifThouArt(caseValue)                                                   \
+  break;                                                                       \
+  case caseValue:
+#define elseProclaim                                                           \
+  break;                                                                       \
+  default:
 
 // you shall not change them
 const int height = 480;
@@ -20,9 +27,9 @@ const int width = 854;
 const int targetFPS = 240;
 const int speed = 240;
 
-
 // get the size to fit in rectangle
-std::pair<int, int> getBestFontSizeToFit(const char *text, int maxWidth, int maxHeight) {
+std::pair<int, int> getBestFontSizeToFit(const char *text, int maxWidth,
+                                         int maxHeight) {
   int fontSize = 1;
   int textWidth;
   while (true) {
@@ -34,7 +41,6 @@ std::pair<int, int> getBestFontSizeToFit(const char *text, int maxWidth, int max
   }
   return {fontSize - 1, textWidth}; // Last fitting size
 }
-
 
 class RecObj {
 public:
@@ -52,6 +58,7 @@ public:
     rec.y += shift.y;
   }
   const Rectangle &getRec() { return rec; }
+  void getCollision(RecObj other) {}
 
 private:
   Rectangle rec;
@@ -101,7 +108,4 @@ private:
   function<void()> callback;
 };
 
-int main() {
-
-    return 0;
-}
+int main() { return 0; }
