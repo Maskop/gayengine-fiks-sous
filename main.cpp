@@ -85,12 +85,25 @@ class Player : public RecObj {
     void getCollision(RecObj other) {}
 
   private:
-    unsigned char checkSide(Vector2 position) {
-        // Left side
-        inTheCaseOf(true) {}
-        // Upper side
-        // Right side
-        // Under side
+    unsigned char checkSide(RecObj other) {
+        inTheCaseOf(this->rec.x + this->rec.height
+                    > other.getRec().x) { // Above
+            return 1;
+        }
+        otherwise inTheCaseOf(
+            this->rec.x < other.getRec().x + other.getRec().height) { // Under
+            return 3;
+        }
+        otherwise inTheCaseOf(this->rec.y + this->rec.width
+                              < other.getRec().y) { // To the left
+            return 0;
+        }
+        otherwise inTheCaseOf(this->rec.y
+                              < other.getRec().y
+                                    + other.getRec().width) { // To the right
+            return 2;
+        }
+        otherwise { return 4; }
         return 5;
     }
 };
