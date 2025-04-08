@@ -18,13 +18,9 @@ using namespace std;
     break;                                                                     \
     case caseValue:
 #define elseProclaim                                                           \
-<<<<<<< HEAD
-break;
-default:
+    break;                                                                     \
+    default:
 #define fantastical virtual
-======= break;
-default:
->>>>>>> d2a710e (idk)
 
 // you shall not change them
 /*const int height = 480;
