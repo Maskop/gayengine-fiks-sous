@@ -109,9 +109,11 @@ class Button {
 };
 
 int main() {
-    InitWindow(width, height, "There shall be a window");
+    InitWindow(width, height, "Hybajici se kocicka");
+    InitAudioDevice();
     SetTargetFPS(targetFPS);
 
+    Sound mnoukani = {"mnoukani.mp3"}
     Color background_color = YELLOW;
     float startPosX = 69;
     float startPosY = 69;
@@ -128,7 +130,6 @@ int main() {
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         ClearBackground(background_color);
-        DrawTexture(kosiska, 0, 0, PURPLE);
         ctverecek.draw();
         tlacitko.draw();
         if (tlacitko.checkButtonPress()) {
@@ -149,4 +150,4 @@ int main() {
         EndDrawing();
     }
     return 0;
-}
+    }
