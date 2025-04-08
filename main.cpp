@@ -6,6 +6,7 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -82,6 +83,19 @@ class RecObj {
     std::optional<Texture2D> image;
 };
 
+class Group {
+  public:
+    Group() = default;
+    Group & add_obj(std::shared_ptr<RecObj> obj){
+        objects.emplace_back(obj);
+        return *this;
+    }
+
+  private:
+    std::vector<std::shared_ptr<RecObj>> objects;
+
+};
+
 class Button {
   public:
     Button(Rectangle rec, string text, function<void()> callback)
@@ -113,7 +127,7 @@ int main() {
     InitAudioDevice();
     SetTargetFPS(targetFPS);
 
-    Sound mnoukani = {"mnoukani.mp3"}
+    Sound mnoukani = LoadSound("mnoukani.mp3");
     Color background_color = YELLOW;
     float startPosX = 69;
     float startPosY = 69;
@@ -125,13 +139,17 @@ int main() {
     vector bounderies{
         Rectangle{-10, 0, 10, height}, Rectangle{width, 0, 10, height},
         Rectangle{0, -10, width, 10}, Rectangle{0, height, width, 10}};
-    Button tlacitko(Rectangle{100, 100, 50, 20}, "Ahoj",
+    Button tlacitko(Rectangle{0, height - 50, 100, 50}, "Ahoj",
                     [&]() { background_color = color_green; });
+    Button tlacitkoMnau(Rectangle{0, 0, 100, 50}, "Ahoj",
+                    [&]() { PlaySound(mnoukani); });
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         ClearBackground(background_color);
         ctverecek.draw();
         tlacitko.draw();
+        tlacitkoMnau.draw();
+        tlacitkoMnau.checkButtonPress();
         if (tlacitko.checkButtonPress()) {
             swap(color_green, color_yellow);
         }
