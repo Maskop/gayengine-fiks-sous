@@ -15,10 +15,10 @@ using namespace std;
 #define ShallTheeWindowClose WindowShouldClose
 
 // you shall not change them
-const int height = 350;
-const int width = 350;
+const int height = 480;
+const int width = 854;
 const int targetFPS = 240;
-
+const int speed = 240;
 // Not a constat just because
 float gAcc = 12;
 
@@ -53,6 +53,7 @@ public:
     };
     void draw() {
         DrawRectangleRec(rec, WHITE);
+        DrawText(text.c_str(), rec.x, rec.y, 12, BLACK);
     }
     bool checkButtonPress(){
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), rec)){
@@ -69,19 +70,19 @@ private:
 };
 
 int main() {
-    InitWindow(height, width, "There shall be a window");
+    InitWindow(width, height, "There shall be a window");
     SetTargetFPS(targetFPS);
     
     Color background_color = YELLOW;
     float startPosX = 69;
     float startPosY = 69;
-    int speed = 64;
     Color color_green = GREEN;
     Color color_yellow = YELLOW;
     Rectangle ctverecek{69,69,69,69};
-    vector bounderies{Rectangle{-10, 0, 10, height}, Rectangle{width, 0, 10, height}, Rectangle{0, -10, width, 10}, Rectangle{0, width, width, 10}
+    vector bounderies{Rectangle{-10, 0, 10, height}, Rectangle{width, 0, 10, height}, Rectangle{0, -10, width, 10}, Rectangle{0, height, width, 10}
     };
     Button tlacitko(Rectangle{100, 100, 50, 20}, "Ahoj", [&](){background_color = color_green;});
+    LoadImage("kocicka.jpg");
     until (ShallTheeWindowClose()){
         BeginDrawing();
         ClearBackground(background_color);
