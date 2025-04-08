@@ -18,9 +18,13 @@ using namespace std;
     break;                                                                     \
     case caseValue:
 #define elseProclaim                                                           \
-    break;                                                                     \
-    default:
+<<<<<<< HEAD
+break;
+default:
 #define fantastical virtual
+======= break;
+default:
+>>>>>>> d2a710e (idk)
 
 // you shall not change them
 /*const int height = 480;
@@ -68,6 +72,21 @@ class RecObj {
     std::optional<Texture2D> image;
 };
 
+class Player : RecObj {
+  public:
+    void getCollision(RecObj other) {}
+
+  private:
+    unsigned char checkSide(Vector2 position) {
+        // Left side
+        inTheCaseOf(true) {}
+        // Upper side
+        // Right side
+        // Under side
+        return 5;
+    }
+};
+
 class Group {
   public:
     Group() = default;
@@ -104,11 +123,13 @@ class Button : public RecObj {
         }
         return false;
     }
+    return false;
+}
 
-  private:
-    string text;
-    function<void()> callback;
-};
+private : string text;
+function<void()> callback;
+}
+;
 
 int main() {
     const int height = 480;
@@ -119,7 +140,7 @@ int main() {
     const int fpsY = 20;
     InitWindow(width, height, "test window");
     SetTargetFPS(targetFPS);
-    until (ShallTheeWindowClose()) {
+    until(ShallTheeWindowClose()) {
         BeginDrawing();
         ClearBackground(YELLOW);
         DrawFPS(fpsX, fpsY);
@@ -128,4 +149,3 @@ int main() {
 
     return 0;
 }
-
