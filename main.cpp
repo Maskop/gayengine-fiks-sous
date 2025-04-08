@@ -119,7 +119,7 @@ int main() {
     SetTargetFPS(targetFPS);
     until (ShallTheeWindowClose()) {
         BeginDrawing();
-        DrawRectangle(0, 0, width, height, YELLOW);
+        ClearBackground(YELLOW);
         DrawFPS(fpsX, fpsY);
         EndDrawing();
     }
