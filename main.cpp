@@ -60,7 +60,7 @@ public:
   const Rectangle &getRec() { return rec; }
   void getCollision(RecObj other) {}
 
-private:
+    protected:
   Rectangle rec;
   Color color;
   std::optional<Texture2D> image;
@@ -83,10 +83,10 @@ private:
   std::vector<std::shared_ptr<RecObj>> objects;
 };
 
-class Button {
+class Button : public RecObj{
 public:
-  Button(Rectangle rec, string text, function<void()> callback)
-      : rec(rec), text(text), callback(callback) {};
+  Button(Rectangle rec, Color color, string text, function<void()> callback)
+      :  RecObj(rec, color, std::nullopt), text(text), callback(callback) {};
   void draw() {
     DrawRectangleRec(rec, WHITE);
     auto t = getBestFontSizeToFit(text.c_str(), rec.width - 2, rec.height - 2);
@@ -103,7 +103,6 @@ public:
   }
 
 private:
-  Rectangle rec;
   string text;
   function<void()> callback;
 };
