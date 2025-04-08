@@ -173,6 +173,8 @@ int main() {
     const int fpsX = 20;
     const int fpsY = 20;
     InitWindow(width, height, "test window");
+    auto fiksa = LoadTexture("fiksa.png");
+    RecObj fiksaPlayer(Rectangle{200, 100, 38, 90}, WHITE, fiksa);
     SetTargetFPS(targetFPS);
     auto fiksa = LoadTexture("fiks_logo.png");
     RecObj fiksPlayer(Rectangle{20, 10, 38, 100}, WHITE, {}, fiksa);
