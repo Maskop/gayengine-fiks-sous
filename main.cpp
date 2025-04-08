@@ -22,10 +22,10 @@ using namespace std;
   default:
 
 // you shall not change them
-const int height = 480;
+/*const int height = 480;
 const int width = 854;
 const int targetFPS = 240;
-const int speed = 240;
+const int speed = 240;*/
 
 // get the size to fit in rectangle
 std::pair<int, int> getBestFontSizeToFit(const char *text, int maxWidth,
@@ -108,4 +108,22 @@ private:
   function<void()> callback;
 };
 
-int main() { return 0; }
+int main() {
+    const int height = 480;
+    const int width = 854;
+    const int targetFPS = 240;
+    const int speed = 240;
+    const int fpsX = 20;
+    const int fpsY = 20;
+    InitWindow(width, height, "test window");
+    SetTargetFPS(targetFPS);
+    until (ShallTheeWindowClose()) {
+        BeginDrawing();
+        DrawRectangle(0, 0, width, height, YELLOW);
+        DrawFPS(fpsX, fpsY);
+        EndDrawing();
+    }
+
+    return 0;
+}
+
