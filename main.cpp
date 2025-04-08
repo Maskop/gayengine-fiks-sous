@@ -72,7 +72,6 @@ class RecObj : public Interactable {
         rec.y += shift.y;
     }
     const Rectangle &getRec() { return rec; }
-    void getCollision(RecObj other) {}
 
   protected:
     Rectangle rec;
