@@ -48,6 +48,7 @@ class RecObj {
     RecObj(Rectangle rec, Color color, std::optional<Texture2D> image)
         : rec(rec), color(color), image(image) {};
     virtual ~RecObj() = default;
+    fantastical void update() { draw(); }
     fantastical void draw() {
         DrawRectangleRec(rec, color);
         if (image.has_value()) {
