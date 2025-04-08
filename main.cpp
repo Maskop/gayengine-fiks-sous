@@ -15,11 +15,11 @@ using namespace std;
 #define ShallTheeWindowClose WindowShouldClose
 #define mayOneOfTheeBeTrue(subject) switch (subject)
 #define ifThouArt(caseValue)                                                   \
-  break;                                                                       \
-  case caseValue:
+    break;                                                                     \
+    case caseValue:
 #define elseProclaim                                                           \
-  break;                                                                       \
-  default:
+    break;                                                                     \
+    default:
 
 // you shall not change them
 /*const int height = 480;
@@ -30,81 +30,83 @@ const int speed = 240;*/
 // get the size to fit in rectangle
 std::pair<int, int> getBestFontSizeToFit(const char *text, int maxWidth,
                                          int maxHeight) {
-  int fontSize = 1;
-  int textWidth;
-  while (true) {
-    textWidth = MeasureText(text, fontSize);
-    int textHeight = fontSize; // Roughly the font height
-    if (textWidth > maxWidth || textHeight > maxHeight)
-      break;
-    fontSize++;
-  }
-  return {fontSize - 1, textWidth}; // Last fitting size
+    int fontSize = 1;
+    int textWidth;
+    while (true) {
+        textWidth = MeasureText(text, fontSize);
+        int textHeight = fontSize; // Roughly the font height
+        if (textWidth > maxWidth || textHeight > maxHeight)
+            break;
+        fontSize++;
+    }
+    return {fontSize - 1, textWidth}; // Last fitting size
 }
 
 class RecObj {
-public:
-  RecObj(Rectangle rec, Color color, std::optional<Texture2D> image)
-      : rec(rec), color(color), image(image) {};
-  void draw() {
-    DrawRectangleRec(rec, color);
-    if (image.has_value()) {
-      DrawTexture(image.value(), rec.x, rec.y, color);
+  public:
+    RecObj(Rectangle rec, Color color, std::optional<Texture2D> image)
+        : rec(rec), color(color), image(image) {};
+    virtual void draw() {
+        DrawRectangleRec(rec, color);
+        if (image.has_value()) {
+            DrawTexture(image.value(), rec.x, rec.y, color);
+        }
     }
-  }
-  void move(Rectangle newPos) { rec = newPos; }
-  void moveBy(Vector2 shift) {
-    rec.x += shift.x;
-    rec.y += shift.y;
-  }
-  const Rectangle &getRec() { return rec; }
-  void getCollision(RecObj other) {}
+    void move(Rectangle newPos) { rec = newPos; }
+    void moveBy(Vector2 shift) {
+        rec.x += shift.x;
+        rec.y += shift.y;
+    }
+    const Rectangle &getRec() { return rec; }
+    void getCollision(RecObj other) {}
 
-    protected:
-  Rectangle rec;
-  Color color;
-  std::optional<Texture2D> image;
+  protected:
+    Rectangle rec;
+    Color color;
+    std::optional<Texture2D> image;
 };
 
 class Group {
-public:
-  Group() = default;
-  Group &add_obj(std::shared_ptr<RecObj> obj) {
-    objects.emplace_back(obj);
-    return *this;
-  }
-  void ChangePosBy(Vector2 change) {
-    for (shared_ptr<RecObj> object : objects) {
-      object->moveBy(change);
+  public:
+    Group() = default;
+    Group &add_obj(std::shared_ptr<RecObj> obj) {
+        objects.emplace_back(obj);
+        return *this;
     }
-  }
+    void ChangePosBy(Vector2 change) {
+        for (shared_ptr<RecObj> object : objects) {
+            object->moveBy(change);
+        }
+    }
 
-private:
-  std::vector<std::shared_ptr<RecObj>> objects;
+  private:
+    std::vector<std::shared_ptr<RecObj>> objects;
 };
 
-class Button : public RecObj{
-public:
-  Button(Rectangle rec, Color color, string text, function<void()> callback)
-      :  RecObj(rec, color, std::nullopt), text(text), callback(callback) {};
-  void draw() {
-    DrawRectangleRec(rec, WHITE);
-    auto t = getBestFontSizeToFit(text.c_str(), rec.width - 2, rec.height - 2);
-    DrawText(text.c_str(), rec.x + (rec.width - t.second) / 2, rec.y + 1,
-             t.first, BLACK);
-  }
-  bool checkButtonPress() {
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
-        CheckCollisionPointRec(GetMousePosition(), rec)) {
-      callback();
-      return true;
+class Button : public RecObj {
+  public:
+    Button(Rectangle rec, Color color, string text, function<void()> callback)
+        : RecObj(rec, color, std::nullopt), text(text), callback(callback) {};
+    void draw() override {
+        RecObj::draw();
+        // DrawRectangleRec(rec, WHITE);
+        auto t
+            = getBestFontSizeToFit(text.c_str(), rec.width - 2, rec.height - 2);
+        DrawText(text.c_str(), rec.x + (rec.width - t.second) / 2,
+                 rec.y + (rec.height - t.first) / 2, t.first, BLACK);
     }
-    return false;
-  }
+    bool checkButtonPress() {
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)
+            && CheckCollisionPointRec(GetMousePosition(), rec)) {
+            callback();
+            return true;
+        }
+        return false;
+    }
 
-private:
-  string text;
-  function<void()> callback;
+  private:
+    string text;
+    function<void()> callback;
 };
 
 int main() {
