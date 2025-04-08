@@ -1,8 +1,6 @@
 #include "raylib/include/raylib.h"
-#include <chrono>
 #include <ctime>
 #include <functional>
-#include <iostream>
 #include <memory>
 #include <optional>
 #include <string>
@@ -96,6 +94,7 @@ public:
   }
   void ChangePosBy(Vector2 change) {
     for (shared_ptr<RecObj> object : objects) {
+      object->moveBy(change);
     }
   }
 
