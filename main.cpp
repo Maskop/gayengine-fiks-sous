@@ -22,7 +22,7 @@ const int speed = 240;
 
 
 // get the size to fit in rectangle
-std::air<int, int> getBestFontSizeToFit(const char *text, int maxWidth, int maxHeight) {
+std::pair<int, int> getBestFontSizeToFit(const char *text, int maxWidth, int maxHeight) {
   int fontSize = 1;
   int textWidth;
   while (true) {
@@ -58,3 +58,50 @@ private:
   Color color;
   std::optional<Texture2D> image;
 };
+
+class Group {
+public:
+  Group() = default;
+  Group &add_obj(std::shared_ptr<RecObj> obj) {
+    objects.emplace_back(obj);
+    return *this;
+  }
+  void ChangePosBy(Vector2 change) {
+    for (shared_ptr<RecObj> object : objects) {
+      object->moveBy(change);
+    }
+  }
+
+private:
+  std::vector<std::shared_ptr<RecObj>> objects;
+};
+
+class Button {
+public:
+  Button(Rectangle rec, string text, function<void()> callback)
+      : rec(rec), text(text), callback(callback) {};
+  void draw() {
+    DrawRectangleRec(rec, WHITE);
+    auto t = getBestFontSizeToFit(text.c_str(), rec.width - 2, rec.height - 2);
+    DrawText(text.c_str(), rec.x + (rec.width - t.second) / 2, rec.y + 1,
+             t.first, BLACK);
+  }
+  bool checkButtonPress() {
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
+        CheckCollisionPointRec(GetMousePosition(), rec)) {
+      callback();
+      return true;
+    }
+    return false;
+  }
+
+private:
+  Rectangle rec;
+  string text;
+  function<void()> callback;
+};
+
+int main() {
+
+    return 0;
+}
