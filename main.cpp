@@ -196,13 +196,9 @@ int main() {
     InitWindow(width, height, "test window");
     SetTargetFPS(targetFPS);
     auto fiksa = LoadTexture("fiksa.png");
-<<<<<<< HEAD
     Rectangle rec = {posXRec, posYRec, 30, 30};
     RecObj alwaysMoving(Rectangle{0, 240, 30, 30}, BLUE, {}, nullopt);
     Player fiksPlayer(rec, BLANK, {}, fiksa);
-=======
-    Player fiksPlayer(Rectangle{200, 100, 8, 81}, BLANK, {}, fiksa);
->>>>>>> a2118a9 (penis)
     auto btn = Button(Rectangle{1, 50, 50, 50}, RED, "Ahoj", []() {});
     until(ShallTheeWindowClose()) {
         BeginDrawing();
