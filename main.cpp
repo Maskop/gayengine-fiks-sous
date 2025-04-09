@@ -62,7 +62,7 @@ class Interactable {
 class RecObj : public Interactable {
   public:
     RecObj(Rectangle rec, Color color, vector<char> collidableSides,
-           std::optional<Texture2D> image, std::optional<float> scale)
+           std::optional<Texture2D> image, std::optional<float> scale = 1.0f)
         : rec(rec), color(color), image(image), scale(scale),
           collidableSides(collidableSides) {};
     virtual ~RecObj() = default;
@@ -197,7 +197,7 @@ int main() {
     const int fpsX = 20;
     const int fpsY = 20;
     float posY = 48;
-    float posY1 = 699;
+    float posY1 = 96 * 4;
     Vector2 vectorMove = {1, 0};
     Vector2 vectorMove1 = {-1, 0};
     float posXRec = 0;
@@ -207,7 +207,7 @@ int main() {
     auto fiksa = LoadTexture("fiksa.png");
     auto soptik = LoadTexture("fiks-soptik.gif");
     Rectangle rec = {posXRec, posYRec, 30, 30};
-    RecObj alwaysMoving(Rectangle{0, 240, 30, 30}, BLUE, {}, soptik, 0.02f);
+    RecObj alwaysMoving(Rectangle{0, 240, 30, 30}, BLUE, {}, soptik, 0.2f);
     Player fiksPlayer(rec, BLANK, {}, fiksa, 0.7f);
     auto btn = Button(Rectangle{1, 50, 50, 50}, RED, "Ahoj", []() {});
     for (int i = 0; i < 4; i++) {
@@ -216,7 +216,7 @@ int main() {
         posY += 96;
     }
     for (int i = 0; i < 4; i++) {
-        RecObj alwaysMoving(Rectangle{100, posY1, 30, 30}, BLUE, {}, nullopt);
+        RecObj alwaysMoving(Rectangle{699, posY1, 30, 30}, BLUE, {}, nullopt);
         interactableObjectsl.push_back(alwaysMoving);
         posY1 -= 96;
     }
