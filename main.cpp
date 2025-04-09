@@ -114,6 +114,7 @@ class RecObj : public Interactable {
 };
 
 vector<RecObj> interactableObjects;
+vector<RecObj> interactableObjectsl;
 
 class Player : public RecObj {
   public:
@@ -195,7 +196,10 @@ int main() {
     const int speed = 240;
     const int fpsX = 20;
     const int fpsY = 20;
+    float posY = 48;
+    float posY1 = 699;
     Vector2 vectorMove = {1, 0};
+    Vector2 vectorMove1 = {-1, 0};
     float posXRec = 0;
     float posYRec = 50;
     InitWindow(width, height, "test window");
@@ -206,13 +210,31 @@ int main() {
     RecObj alwaysMoving(Rectangle{0, 240, 30, 30}, BLUE, {}, soptik, 0.02f);
     Player fiksPlayer(rec, BLANK, {}, fiksa, 0.7f);
     auto btn = Button(Rectangle{1, 50, 50, 50}, RED, "Ahoj", []() {});
+    for (int i = 0; i < 4; i++) {
+        RecObj alwaysMoving(Rectangle{100, posY, 30, 30}, BLUE, {}, nullopt);
+        interactableObjects.push_back(alwaysMoving);
+        posY += 96;
+    }
+    for (int i = 0; i < 4; i++) {
+        RecObj alwaysMoving(Rectangle{100, posY1, 30, 30}, BLUE, {}, nullopt);
+        interactableObjectsl.push_back(alwaysMoving);
+        posY1 -= 96;
+    }
+
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         BeginBlendMode(BLEND_ALPHA);
         ClearBackground(YELLOW);
-        alwaysMoving.draw();
-        vectorMove = compareMovingObj(vectorMove, alwaysMoving);
-        alwaysMoving.moveBy(vectorMove);
+        for (auto &alwaysMoving : interactableObjects) {
+            alwaysMoving.draw();
+            vectorMove = compareMovingObj(vectorMove, alwaysMoving);
+            alwaysMoving.moveBy(vectorMove);
+        }
+        for (auto &alwaysMoving : interactableObjectsl) {
+            alwaysMoving.draw();
+            vectorMove1 = compareMovingObj(vectorMove1, alwaysMoving);
+            alwaysMoving.moveBy(vectorMove1);
+        }
         DrawFPS(fpsX, fpsY);
         fiksPlayer.draw();
         fiksPlayer.update();
