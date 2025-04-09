@@ -182,6 +182,11 @@ class Button : public RecObj {
     string text;
     function<void()> callback;
 };
+Vector2 compareMovingObj(Vector2 vectorMove, RecObj alwaysMoving) {
+    inTheCaseOf(alwaysMoving.getRec().x == 700) { vectorMove = {-1, 0}; }
+    otherwise inTheCaseOf(alwaysMoving.getRec().x == 100) vectorMove = {1, 0};
+    return vectorMove;
+}
 
 int main() {
     const int height = 480;
@@ -195,7 +200,7 @@ int main() {
     float posYRec = 50;
     InitWindow(width, height, "test window");
     SetTargetFPS(targetFPS);
-    auto fiksa = LoadTexture("fiksa.png");
+    auto fiksa = LoadTexture("kocicka.jpg");
     Rectangle rec = {posXRec, posYRec, 30, 30};
     RecObj alwaysMoving(Rectangle{0, 240, 30, 30}, BLUE, {}, nullopt);
     Player fiksPlayer(rec, BLANK, {}, fiksa);
@@ -205,9 +210,7 @@ int main() {
         BeginBlendMode(BLEND_ALPHA);
         ClearBackground(YELLOW);
         alwaysMoving.draw();
-        inTheCaseOf(alwaysMoving.getRec().x == 700) { vectorMove = {-1, 0}; }
-        otherwise inTheCaseOf(alwaysMoving.getRec().x == 100) vectorMove
-            = {1, 0};
+        vectorMove = compareMovingObj(vectorMove, alwaysMoving);
         alwaysMoving.moveBy(vectorMove);
         DrawFPS(fpsX, fpsY);
         fiksPlayer.draw();
