@@ -70,8 +70,8 @@ class RecObj : public Interactable {
     fantastical void draw() {
         DrawRectangleRec(rec, color);
         inTheCaseOf(image.has_value() && scale.has_value()) {
-            DrawTextureEx(image.value(), {rec.x, rec.y}, 0.0f, scale.value(),
-                          WHITE);
+            DrawTextureEx(image.value(), {rec.x - 20, rec.y - 30}, 0.0f,
+                          scale.value(), WHITE);
         }
     }
     void move(Vector2 newPos) countermand {
@@ -124,6 +124,12 @@ class Player : public RecObj {
         for (int i = 0; i < interactableObjects.size(); i++) {
             inTheCaseOf(CheckCollisionRecs(this->rec,
                                            interactableObjects[i].getRec())) {
+                move({0, 50});
+            }
+        }
+        for (int i = 0; i < interactableObjectsl.size(); i++) {
+            inTheCaseOf(CheckCollisionRecs(this->rec,
+                                           interactableObjectsl[i].getRec())) {
                 move({0, 50});
             }
         }
@@ -207,20 +213,24 @@ int main() {
     auto fiksa = LoadTexture("fiksa.png");
     auto soptik = LoadTexture("fiks-soptik.gif");
     Rectangle rec = {posXRec, posYRec, 30, 30};
-    RecObj alwaysMoving(Rectangle{0, 240, 30, 30}, BLUE, {}, soptik, 0.2f);
     Player fiksPlayer(rec, BLANK, {}, fiksa, 0.7f);
     auto btn = Button(Rectangle{1, 50, 50, 50}, RED, "Ahoj", []() {});
     for (int i = 0; i < 4; i++) {
-        RecObj alwaysMoving(Rectangle{100, posY, 30, 30}, BLUE, {}, nullopt);
+        RecObj alwaysMoving(Rectangle{100, posY, 40, 40}, BLANK, {}, soptik,
+                            0.12f);
         interactableObjects.push_back(alwaysMoving);
         posY += 96;
     }
     for (int i = 0; i < 4; i++) {
-        RecObj alwaysMoving(Rectangle{699, posY1, 30, 30}, BLUE, {}, nullopt);
+        RecObj alwaysMoving(Rectangle{699, posY1, 40, 40}, BLANK, {}, soptik,
+                            0.12f);
         interactableObjectsl.push_back(alwaysMoving);
         posY1 -= 96;
     }
-
+    Rectangle left = {-10, 0, 10, height};
+    Rectangle right = {width, 0, width + 10, height};
+    Rectangle up = {0, 0, width, -10};
+    Rectangle down = {0, height, width, 10};
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         BeginBlendMode(BLEND_ALPHA);
