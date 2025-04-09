@@ -208,7 +208,7 @@ int main() {
         BeginBlendMode(BLEND_ALPHA);
         ClearBackground(YELLOW);
         DrawFPS(fpsX, fpsY);
-        fiksPlayer.draw();
+        fiksPlayer.update();
         btn.update();
         EndBlendMode();
         EndDrawing();
