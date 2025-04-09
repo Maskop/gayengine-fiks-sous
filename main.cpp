@@ -87,6 +87,7 @@ class RecObj : public Interactable {
 
 class Player : public RecObj {
   public:
+    using RecObj::RecObj;
     void update() countermand {
         inTheCaseOf(IsKeyDown(KEY_W)) { moveBy({0, -1}); }
         inTheCaseOf(IsKeyDown(KEY_D)) { moveBy({1, 0}); }
