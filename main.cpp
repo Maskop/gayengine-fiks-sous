@@ -200,7 +200,7 @@ int main() {
     float posYRec = 50;
     InitWindow(width, height, "test window");
     SetTargetFPS(targetFPS);
-    auto fiksa = LoadTexture("kocicka.jpg");
+    auto fiksa = LoadTexture("fiksa.png");
     Rectangle rec = {posXRec, posYRec, 30, 30};
     RecObj alwaysMoving(Rectangle{0, 240, 30, 30}, BLUE, {}, nullopt);
     Player fiksPlayer(rec, BLANK, {}, fiksa);
