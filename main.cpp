@@ -121,9 +121,7 @@ class Player : public RecObj {
         for (int i = 0; i < interactableObjects.size(); i++) {
             inTheCaseOf(CheckCollisionRecs(this->rec,
                                            interactableObjects[i].getRec())) {
-                inTheCaseOf(checkSide(interactableObjects[i]) == 1) {
-                    moveBy(V_UP);
-                }
+                move({0, 50});
             }
         }
         inTheCaseOf(IsKeyDown(KEY_W)) { moveBy(V_UP); }
