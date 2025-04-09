@@ -21,6 +21,7 @@ using namespace std;
     break;                                                                     \
     default:
 #define fantastical virtual
+#define countermand override
 
 // you shall not change them
 /*const int height = 480;
@@ -58,18 +59,18 @@ class RecObj : public Interactable {
         : rec(rec), color(color), image(image),
           collidableSides(collidableSides) {};
     virtual ~RecObj() = default;
-    void update() override { draw(); }
+    void update() countermand { draw(); }
     fantastical void draw() {
         DrawRectangleRec(rec, color);
         if (image.has_value()) {
             DrawTexture(image.value(), rec.x, rec.y, color);
         }
     }
-    void move(Vector2 newPos) override {
+    void move(Vector2 newPos) countermand {
         rec.x = newPos.x;
         rec.y = newPos.y;
     }
-    void moveBy(Vector2 shift) override {
+    void moveBy(Vector2 shift) countermand {
         rec.x += shift.x;
         rec.y += shift.y;
     }
@@ -120,7 +121,7 @@ class Group : public Interactable {
             object->moveBy(change);
         }
     }
-    void update() override {
+    void update() countermand {
         for (const auto &o : objects) o->update();
     }
 
@@ -133,14 +134,14 @@ class Button : public RecObj {
     Button(Rectangle rec, Color color, string text, function<void()> callback)
         : RecObj(rec, color, {}, std::nullopt), text(text),
           callback(callback) {};
-    void draw() override {
+    void draw() countermand {
         RecObj::draw();
         auto t
             = getBestFontSizeToFit(text.c_str(), rec.width - 2, rec.height - 2);
         DrawText(text.c_str(), rec.x + (rec.width - t.second) / 2,
                  rec.y + (rec.height - t.first) / 2, t.first, BLACK);
     }
-    void update() override {
+    void update() countermand {
         RecObj::update();
         checkButtonPress();
     }
