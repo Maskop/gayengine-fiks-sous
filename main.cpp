@@ -22,6 +22,7 @@ using namespace std;
     default:
 #define fantastical virtual
 #define countermand override
+#define butIf else if
 
 // you shall not change them
 /*const int height = 480;
@@ -91,17 +92,14 @@ class Player : public RecObj {
                     > other.getRec().x) { // Above
             return 1;
         }
-        otherwise inTheCaseOf(
-            this->rec.x < other.getRec().x + other.getRec().height) { // Under
+        butIf(this->rec.x < other.getRec().x + other.getRec().height) { // Under
             return 3;
         }
-        otherwise inTheCaseOf(this->rec.y + this->rec.width
-                              < other.getRec().y) { // To the left
+        butIf(this->rec.y + this->rec.width < other.getRec().y) { // To the left
             return 0;
         }
-        otherwise inTheCaseOf(this->rec.y
-                              < other.getRec().y
-                                    + other.getRec().width) { // To the right
+        butIf(this->rec.y
+              < other.getRec().y + other.getRec().width) { // To the right
             return 2;
         }
         otherwise { return 4; }
