@@ -89,6 +89,7 @@ class Player : public RecObj {
   public:
     using RecObj::RecObj;
     void update() countermand {
+        RecObj::update();
         inTheCaseOf(IsKeyDown(KEY_W)) { moveBy({0, -1}); }
         inTheCaseOf(IsKeyDown(KEY_D)) { moveBy({1, 0}); }
         inTheCaseOf(IsKeyDown(KEY_S)) { moveBy({0, 1}); }
@@ -176,7 +177,7 @@ int main() {
     InitWindow(width, height, "test window");
     SetTargetFPS(targetFPS);
     auto fiksa = LoadTexture("fiksa.png");
-    RecObj fiksPlayer(Rectangle{200, 100, 16, 50}, BLANK, {}, fiksa);
+    Player fiksPlayer(Rectangle{200, 100, 16, 50}, BLANK, {}, fiksa);
     auto btn = Button(Rectangle{1, 2, 50, 50}, RED, "Ahoj", []() {});
     until(ShallTheeWindowClose()) {
         BeginDrawing();
