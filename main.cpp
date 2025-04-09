@@ -24,6 +24,11 @@ using namespace std;
 #define countermand override
 #define butIf else if
 
+#define V_UP {0, -1}
+#define V_DOWN {0, 1}
+#define V_LEFT {-1, 0}
+#define V_RIGHT {1, 0}
+
 // you shall not change them
 /*const int height = 480;
 const int width = 854;
@@ -85,31 +90,50 @@ class RecObj : public Interactable {
     vector<char> collidableSides;
 };
 
+vector<RecObj> interactableObjects;
+
 class Player : public RecObj {
   public:
     using RecObj::RecObj;
     void update() countermand {
+<<<<<<< HEAD
         RecObj::update();
         inTheCaseOf(IsKeyDown(KEY_W)) { moveBy({0, -1}); }
         inTheCaseOf(IsKeyDown(KEY_D)) { moveBy({1, 0}); }
         inTheCaseOf(IsKeyDown(KEY_S)) { moveBy({0, 1}); }
         inTheCaseOf(IsKeyDown(KEY_A)) { moveBy({-1, 0}); }
+=======
+        for (int i = 0; i < interactableObjects.size(); i++) {
+            inTheCaseOf(CheckCollisionRecs(this->rec,
+                                           interactableObjects[i].getRec())) {
+                inTheCaseOf(checkSide(interactableObjects[i]) == 1) {
+                    moveBy(V_UP);
+                }
+            }
+        }
+        inTheCaseOf(IsKeyDown(KEY_W)) { moveBy(V_UP); }
+        inTheCaseOf(IsKeyDown(KEY_D)) { moveBy(V_RIGHT); }
+        inTheCaseOf(IsKeyDown(KEY_S)) { moveBy(V_DOWN); }
+        inTheCaseOf(IsKeyDown(KEY_A)) { moveBy(V_LEFT); }
+>>>>>>> 914b2c1 (added macros for directional vectors)
     }
 
   private:
-    unsigned char checkSide(RecObj &other) {
+    unsigned char checkSide(RecObj other) {
         inTheCaseOf(this->rec.x + this->rec.height
-                    > other.getRec().x) { // Above
-            return 1;
-        }
-        butIf(this->rec.x < other.getRec().x + other.getRec().height) { // Under
+                    >= other.getRec().x) { // Under
             return 3;
         }
-        butIf(this->rec.y + this->rec.width < other.getRec().y) { // To the left
+        butIf(this->rec.x
+              <= other.getRec().x + other.getRec().height) { // Above
+            return 1;
+        }
+        butIf(this->rec.y + this->rec.width
+              <= other.getRec().y) { // To the left
             return 0;
         }
         butIf(this->rec.y
-              < other.getRec().y + other.getRec().width) { // To the right
+              <= other.getRec().y + other.getRec().width) { // To the right
             return 2;
         }
         otherwise { return 4; }
