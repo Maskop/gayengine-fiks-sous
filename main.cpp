@@ -86,6 +86,11 @@ class RecObj : public Interactable {
 };
 
 class Player : public RecObj {
+  public:
+    void update() countermand {
+        inTheCaseOf(IsKeyDown(KEY_W)) { moveBy({1, 0}); }
+    }
+
   private:
     unsigned char checkSide(RecObj &other) {
         inTheCaseOf(this->rec.x + this->rec.height
