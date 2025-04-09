@@ -130,28 +130,6 @@ class Player : public RecObj {
         inTheCaseOf(IsKeyDown(KEY_S)) { moveBy(V_DOWN); }
         inTheCaseOf(IsKeyDown(KEY_A)) { moveBy(V_LEFT); }
     }
-
-  private:
-    unsigned char checkSide(RecObj other) {
-        inTheCaseOf(this->rec.x + this->rec.height
-                    >= other.getRec().x) { // Under
-            return 3;
-        }
-        butIf(this->rec.x
-              <= other.getRec().x + other.getRec().height) { // Above
-            return 1;
-        }
-        butIf(this->rec.y + this->rec.width
-              <= other.getRec().y) { // To the left
-            return 0;
-        }
-        butIf(this->rec.y
-              <= other.getRec().y + other.getRec().width) { // To the right
-            return 2;
-        }
-        otherwise { return 4; }
-        return 5;
-    }
 };
 
 class Group : public Interactable {
