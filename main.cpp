@@ -174,12 +174,15 @@ int main() {
     const int fpsY = 20;
     InitWindow(width, height, "test window");
     SetTargetFPS(targetFPS);
+    auto fiksa = LoadTexture("fiks_logo.png");
+    RecObj fiksPlayer(Rectangle{20, 10, 38, 100}, WHITE, {}, fiksa);
     auto btn = Button(Rectangle{1, 2, 50, 50}, RED, "Ahoj", []() {});
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         BeginBlendMode(BLEND_ALPHA);
         ClearBackground(YELLOW);
         DrawFPS(fpsX, fpsY);
+        fiksPlayer.draw();
         btn.update();
         EndBlendMode();
         EndDrawing();
