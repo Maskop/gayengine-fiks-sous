@@ -202,13 +202,16 @@ int main() {
     SetTargetFPS(targetFPS);
     auto fiksa = LoadTexture("fiksa.png");
     Player fiksPlayer(Rectangle{200, 100, 16, 50}, BLANK, {}, fiksa);
+    RecObj randomRec(Rectangle{300, 50, 50, 200}, RED, {}, nullopt);
     auto btn = Button(Rectangle{1, 2, 50, 50}, RED, "Ahoj", []() {});
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         BeginBlendMode(BLEND_ALPHA);
         ClearBackground(YELLOW);
         DrawFPS(fpsX, fpsY);
+        fiksPlayer.draw();
         fiksPlayer.update();
+        fiksPlayer.checkSide(randomRec);
         btn.update();
         EndBlendMode();
         EndDrawing();
