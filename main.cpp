@@ -96,10 +96,7 @@ class Player : public RecObj {
   public:
     using RecObj::RecObj;
     void update() countermand {
-<<<<<<< HEAD
         RecObj::update();
-=======
->>>>>>> 9557b51 (did I change?sss)
         for (int i = 0; i < interactableObjects.size(); i++) {
             inTheCaseOf(CheckCollisionRecs(this->rec,
                                            interactableObjects[i].getRec())) {
