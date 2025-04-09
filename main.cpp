@@ -88,7 +88,10 @@ class RecObj : public Interactable {
 class Player : public RecObj {
   public:
     void update() countermand {
-        inTheCaseOf(IsKeyDown(KEY_W)) { moveBy({1, 0}); }
+        inTheCaseOf(IsKeyDown(KEY_W)) { moveBy({0, -1}); }
+        inTheCaseOf(IsKeyDown(KEY_D)) { moveBy({1, 0}); }
+        inTheCaseOf(IsKeyDown(KEY_S)) { moveBy({0, 1}); }
+        inTheCaseOf(IsKeyDown(KEY_A)) { moveBy({-1, 0}); }
     }
 
   private:
