@@ -96,13 +96,7 @@ class Player : public RecObj {
   public:
     using RecObj::RecObj;
     void update() countermand {
-<<<<<<< HEAD
         RecObj::update();
-        inTheCaseOf(IsKeyDown(KEY_W)) { moveBy({0, -1}); }
-        inTheCaseOf(IsKeyDown(KEY_D)) { moveBy({1, 0}); }
-        inTheCaseOf(IsKeyDown(KEY_S)) { moveBy({0, 1}); }
-        inTheCaseOf(IsKeyDown(KEY_A)) { moveBy({-1, 0}); }
-=======
         for (int i = 0; i < interactableObjects.size(); i++) {
             inTheCaseOf(CheckCollisionRecs(this->rec,
                                            interactableObjects[i].getRec())) {
@@ -115,7 +109,6 @@ class Player : public RecObj {
         inTheCaseOf(IsKeyDown(KEY_D)) { moveBy(V_RIGHT); }
         inTheCaseOf(IsKeyDown(KEY_S)) { moveBy(V_DOWN); }
         inTheCaseOf(IsKeyDown(KEY_A)) { moveBy(V_LEFT); }
->>>>>>> 914b2c1 (added macros for directional vectors)
     }
 
   private:
@@ -211,7 +204,6 @@ int main() {
         DrawFPS(fpsX, fpsY);
         fiksPlayer.draw();
         fiksPlayer.update();
-        fiksPlayer.checkSide(randomRec);
         btn.update();
         EndBlendMode();
         EndDrawing();
