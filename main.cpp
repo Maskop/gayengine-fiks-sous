@@ -202,6 +202,8 @@ int main() {
     const int speed = 240;
     const int fpsX = 20;
     const int fpsY = 20;
+    Color color_main = YELLOW;
+    Color color_secondary = GREEN;
     float posY = 48;
     float posY1 = 96 * 4;
     Vector2 vectorMove = {1, 0};
@@ -212,18 +214,18 @@ int main() {
     SetTargetFPS(targetFPS);
     auto fiksa = LoadTexture("fiksa.png");
     auto soptik = LoadTexture("fiks-soptik.gif");
-    Rectangle rec = {posXRec, posYRec, 30, 30};
-    Player fiksPlayer(rec, BLANK, {}, fiksa, 0.7f);
+    Rectangle rec = {posXRec, posYRec, 15, 15};
+    Player fiksPlayer(rec, BLANK, {}, fiksa, 0.4f);
     auto btn = Button(Rectangle{1, 50, 50, 50}, RED, "Ahoj", []() {});
     for (int i = 0; i < 4; i++) {
-        RecObj alwaysMoving(Rectangle{100, posY, 40, 40}, BLANK, {}, soptik,
-                            0.12f);
+        RecObj alwaysMoving(Rectangle{100, posY, 20, 20}, BLANK, {}, soptik,
+                            0.10f);
         interactableObjects.push_back(alwaysMoving);
         posY += 96;
     }
     for (int i = 0; i < 4; i++) {
-        RecObj alwaysMoving(Rectangle{699, posY1, 40, 40}, BLANK, {}, soptik,
-                            0.12f);
+        RecObj alwaysMoving(Rectangle{699, posY1, 20, 20}, BLANK, {}, soptik,
+                            0.10f);
         interactableObjectsl.push_back(alwaysMoving);
         posY1 -= 96;
     }
@@ -234,7 +236,7 @@ int main() {
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         BeginBlendMode(BLEND_ALPHA);
-        ClearBackground(YELLOW);
+        ClearBackground(color_secondary);
         for (auto &alwaysMoving : interactableObjects) {
             alwaysMoving.draw();
             vectorMove = compareMovingObj(vectorMove, alwaysMoving);
@@ -249,6 +251,10 @@ int main() {
         fiksPlayer.draw();
         fiksPlayer.update();
         btn.update();
+        if (btn.checkButtonPress()) {
+            ClearBackground(color_main);
+            swap(color_main, color_secondary);
+        }
         EndBlendMode();
         EndDrawing();
     }
