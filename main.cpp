@@ -214,9 +214,9 @@ int main() {
     SetTargetFPS(targetFPS);
     auto fiksa = LoadTexture("fiksa.png");
     auto soptik = LoadTexture("fiks-soptik.gif");
-    Rectangle rec = {posXRec, posYRec, 15, 15};
+    Rectangle rec = {posXRec, posYRec, 15, 22};
     Player fiksPlayer(rec, BLANK, {}, fiksa, 0.4f);
-    auto btn = Button(Rectangle{1, 50, 50, 50}, RED, "Ahoj", []() {});
+    auto btn = Button(Rectangle{10, 420, 50, 50}, RED, "Tlacitko", []() {});
     for (int i = 0; i < 4; i++) {
         RecObj alwaysMoving(Rectangle{100, posY, 20, 20}, BLANK, {}, soptik,
                             0.10f);
@@ -224,7 +224,7 @@ int main() {
         posY += 96;
     }
     for (int i = 0; i < 4; i++) {
-        RecObj alwaysMoving(Rectangle{699, posY1, 20, 20}, BLANK, {}, soptik,
+        RecObj alwaysMoving(Rectangle{699, posY1, 20, 20}, BLUE, {}, soptik,
                             0.10f);
         interactableObjectsl.push_back(alwaysMoving);
         posY1 -= 96;
