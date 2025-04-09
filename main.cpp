@@ -115,6 +115,7 @@ class RecObj : public Interactable {
 
 vector<RecObj> interactableObjects;
 vector<RecObj> interactableObjectsl;
+vector<RecObj> interactableObjectsEdge;
 
 class Player : public RecObj {
   public:
@@ -202,14 +203,14 @@ int main() {
     const int speed = 240;
     const int fpsX = 20;
     const int fpsY = 20;
-    Color color_main = YELLOW;
-    Color color_secondary = GREEN;
     float posY = 48;
     float posY1 = 96 * 4;
     Vector2 vectorMove = {1, 0};
     Vector2 vectorMove1 = {-1, 0};
     float posXRec = 0;
     float posYRec = 50;
+    Color main_color = YELLOW;
+    Color secondary_color = GREEN;
     InitWindow(width, height, "test window");
     SetTargetFPS(targetFPS);
     auto fiksa = LoadTexture("fiksa.png");
@@ -219,24 +220,22 @@ int main() {
     auto btn = Button(Rectangle{10, 420, 50, 50}, RED, "Tlacitko", []() {});
     for (int i = 0; i < 4; i++) {
         RecObj alwaysMoving(Rectangle{100, posY, 20, 20}, BLANK, {}, soptik,
-                            0.10f);
+                            0.12f);
         interactableObjects.push_back(alwaysMoving);
         posY += 96;
     }
     for (int i = 0; i < 4; i++) {
-        RecObj alwaysMoving(Rectangle{699, posY1, 20, 20}, BLUE, {}, soptik,
-                            0.10f);
+        RecObj alwaysMoving(Rectangle{699, posY1, 20, 20}, BLANK, {}, soptik,
+                            0.12f);
         interactableObjectsl.push_back(alwaysMoving);
         posY1 -= 96;
     }
     Rectangle left = {-10, 0, 10, height};
     Rectangle right = {width, 0, width + 10, height};
-    Rectangle up = {0, 0, width, -10};
-    Rectangle down = {0, height, width, 10};
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         BeginBlendMode(BLEND_ALPHA);
-        ClearBackground(color_secondary);
+        ClearBackground(secondary_color);
         for (auto &alwaysMoving : interactableObjects) {
             alwaysMoving.draw();
             vectorMove = compareMovingObj(vectorMove, alwaysMoving);
@@ -251,9 +250,9 @@ int main() {
         fiksPlayer.draw();
         fiksPlayer.update();
         btn.update();
-        if (btn.checkButtonPress()) {
-            ClearBackground(color_main);
-            swap(color_main, color_secondary);
+        inTheCaseOf(btn.checkButtonPress()) {
+            ClearBackground(main_color);
+            swap(main_color, secondary_color);
         }
         EndBlendMode();
         EndDrawing();
