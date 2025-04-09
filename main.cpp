@@ -189,15 +189,25 @@ int main() {
     const int speed = 240;
     const int fpsX = 20;
     const int fpsY = 20;
+    Vector2 vectorMove = {1, 0};
+    float posXRec = 0;
+    float posYRec = 50;
     InitWindow(width, height, "test window");
     SetTargetFPS(targetFPS);
     auto fiksa = LoadTexture("fiksa.png");
-    Player fiksPlayer(Rectangle{200, 100, 16, 50}, BLANK, {}, fiksa);
+    Rectangle rec = {posXRec, posYRec, 30, 30};
+    RecObj alwaysMoving(Rectangle{0, 240, 30, 30}, BLUE, {}, nullopt);
+    Player fiksPlayer(rec, BLANK, {}, fiksa);
     auto btn = Button(Rectangle{1, 50, 50, 50}, RED, "Ahoj", []() {});
     until(ShallTheeWindowClose()) {
         BeginDrawing();
         BeginBlendMode(BLEND_ALPHA);
         ClearBackground(YELLOW);
+        alwaysMoving.draw();
+        inTheCaseOf(alwaysMoving.getRec().x == 700) { vectorMove = {-1, 0}; }
+        otherwise inTheCaseOf(alwaysMoving.getRec().x == 100) vectorMove
+            = {1, 0};
+        alwaysMoving.moveBy(vectorMove);
         DrawFPS(fpsX, fpsY);
         fiksPlayer.draw();
         fiksPlayer.update();
