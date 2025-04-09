@@ -140,6 +140,10 @@ class Button : public RecObj {
         DrawText(text.c_str(), rec.x + (rec.width - t.second) / 2,
                  rec.y + (rec.height - t.first) / 2, t.first, BLACK);
     }
+    void update() override {
+        RecObj::update();
+        checkButtonPress();
+    }
     bool checkButtonPress() {
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)
             && CheckCollisionPointRec(GetMousePosition(), rec)) {
