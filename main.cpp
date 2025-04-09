@@ -84,11 +84,8 @@ class RecObj : public Interactable {
 };
 
 class Player : public RecObj {
-  public:
-    void getCollision(RecObj other) {}
-
   private:
-    unsigned char checkSide(RecObj other) {
+    unsigned char checkSide(RecObj &other) {
         inTheCaseOf(this->rec.x + this->rec.height
                     > other.getRec().x) { // Above
             return 1;
