@@ -166,9 +166,11 @@ int main() {
     auto btn = Button(Rectangle{1, 2, 50, 50}, RED, "Ahoj", []() {});
     until(ShallTheeWindowClose()) {
         BeginDrawing();
+        BeginBlendMode(BLEND_ALPHA);
         ClearBackground(YELLOW);
         DrawFPS(fpsX, fpsY);
         btn.update();
+        EndBlendMode();
         EndDrawing();
     }
 
