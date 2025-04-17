@@ -1,7 +1,6 @@
 #include "raylib/include/raylib.h"
 #include <ctime>
 #include <functional>
-#include <iostream>
 #include <memory>
 #include <optional>
 #include <string>
@@ -29,12 +28,6 @@ using namespace std;
 #define V_DOWN {0, 1}
 #define V_LEFT {-1, 0}
 #define V_RIGHT {1, 0}
-
-// you shall not change them
-/*const int height = 480;
-const int width = 854;
-const int targetFPS = 240;
-const int speed = 240;*/
 
 // get the size to fit in rectangle
 std::pair<int, int> getBestFontSizeToFit(const char *text, int maxWidth,
